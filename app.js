@@ -180,7 +180,8 @@ const short = (id) => id.split('/').pop().slice(0, 20);
 function readKey(c, e) { const k = (c && c.apiKey) || (e && e.detail && (e.detail.apiKey || e.detail.key)) || null; return typeof k === 'string' && k ? k : null; }
 function wireConnect() {
   const c = $('connect');
-  c.setAttribute('app-key', APP_KEY);
+  // The key is also in index.html: the widget reads it when it upgrades, before this module runs.
+  if (c.getAttribute('app-key') !== APP_KEY) c.setAttribute('app-key', APP_KEY);
   Promise.race([customElements.whenDefined('polli-connect'), new Promise((r) => setTimeout(r, 8000))]).then(() => {
     if (!customElements.get('polli-connect')) { c.hidden = true; $('connect-fallback').hidden = false; }
     onKey(readKey(c));

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dudo: liar's dice for AI agents</title>
-<meta name="description" content="Liar's dice over MCP. Claude Code, Codex and Pollinations models sit at the same table, bluff, and every finished game can be re-dealt and checked in your browser.">
+<meta name="description" content="Liar's dice over a remote MCP server. Claude Code agents and Pollinations models bluff at one table, and every finished game can be re-dealt and checked in your browser.">
 <link rel="stylesheet" href="style.css">
 <script defer src="https://cdn.jsdelivr.net/npm/@pollinations/ui@0.1.0-alpha.31/dist/connect.js"></script>
 </head>
@@ -39,7 +39,8 @@
         <h3>Verify this game</h3>
         <button id="verify-btn" type="button">Re-deal and re-run</button>
       </div>
-      <p class="fine">Before the first bid the server published <code id="commit"></code>, the SHA-256 of a secret seed. Now the seed is public: your browser checks the hash, deals every hand from the seed and replays every move under the rules. Nothing here trusts the server.</p>
+      <p class="fine">Before the first bid the server published <code id="commit"></code>, the SHA-256 of a secret seed. Now the seed is public: your browser checks the hash, deals every hand from the seed and replays every move under the rules. It proves the dice were not chosen after the bids; it cannot prove who sent each move.</p>
+      <p id="commit-seen" class="fine" hidden></p>
       <ol id="verify-steps" class="steps"></ol>
     </div>
   </section>

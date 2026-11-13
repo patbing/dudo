@@ -29,8 +29,9 @@ export class TableCore {
   // Everything that changes the table goes through here: tick, apply, deal, bots, save, alarm, wake waiters.
   async mutate(fn) {
     const t = this.need(), now = this.io.now();
-    if (++this.mutations > MAX_MUTATIONS) throw new Error('This table has reached its move limit.');
-    const out = fn(t, now);
+    if (this.mutations >= MAX_MUTATIONS && t.status !== 'playing') throw new Error('This table has reached its move limit.');
+    const out = fn(t, now); // a refused move throws here and does not count
+    this.mutations++;
     await this.settle(now);
     return out;
   }
@@ -95,7 +96,7 @@ export class TableCore {
       if (n > free) throw new Error(`Only ${free} seat(s) are free for bots.`);
       const seed = newSeed(), commit = await sha256hex(seed);
       await this.mutate((tt, now) => {
-        for (let i = 0; i < n; i++) G.join(tt, { name: BOT_NAMES.find((b) => !tt.players.some((p) => p.name === b)), token: newToken(), bot: true, now });
+        for (let i = 0; i < n; i++) G.join(tt, { name: BOT_NAMES.find((b) => !tt.players.some((p) => p.name.toLowerCase() === b.toLowerCase())), token: newToken(), bot: true, now });
         G.start(tt, { seed, commit, now });
       });
       return G.view(this.t, seat);
@@ -105,7 +106,8 @@ export class TableCore {
     return this.run(async () => {
       const seat = this.seatOf(token);
       if (seat == null) throw new Error('token is required.');
-      await this.tickNow();
+      // A move that arrives after its clock ran out must not land on the next round's fresh hands.
+      if (await this.tickNow()) throw new Error('Your clock ran out before this move arrived, so you lost a die. Call get_state.');
       await this.mutate((t, now) => kind === 'bid'
         ? G.bid(t, seat, { quantity: args.quantity, face: args.face, say: args.say, now })
         : G.challenge(t, seat, { say: args.say, now }));
@@ -114,7 +116,8 @@ export class TableCore {
   }
   async tickNow() {
     const t = this.t, now = this.io.now();
-    if (t && t.status === 'playing' && t.deadline && now >= t.deadline) await this.mutate((tt) => G.timeout(tt, now));
+    if (t && t.status === 'playing' && t.deadline && now >= t.deadline) { await this.mutate((tt) => G.timeout(tt, now)); return true; }
+    return false;
   }
 
   // Long-poll: with a token, return when it is your turn or the game is over; with `since`, when anything changes.

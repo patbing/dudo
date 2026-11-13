@@ -69,6 +69,18 @@ test('dice are uniform (60,000 rolls within 3%)', async () => {
   assert.deepEqual(await deal('x', 1, 2, 5), await deal('x', 1, 2, 5));
 });
 
+// Every view of every seat and of a spectator, at every step: no other hand of the running round, no seed before the end.
+function checkSecrecy(t) {
+  for (const seat of [null, ...t.players.map((p) => p.seat)]) {
+    const v = G.view(t, seat), s = JSON.stringify(v);
+    if (t.status !== 'over') assert.ok(!s.includes(t.seed), 'seed leaked');
+    assert.ok(!('hands' in v), 'hands field in a view');
+    if (t.status === 'playing' && v.last_showdown) assert.ok(v.last_showdown.round < t.round, 'showdown of the running round');
+    if (seat == null) assert.ok(!('you' in v), 'spectator got a hand');
+    else if (t.hands && t.hands[seat]) assert.deepEqual(v.you.dice, t.hands[seat], 'a seat sees its own dice only');
+  }
+}
+
 async function playOut(names = ['Ann', 'Bob', 'Cy'], maxMoves = 500) {
   const t = G.newTable({ code: 'PLAY', dice: 3, seats: names.length });
   names.forEach((n, i) => G.join(t, { name: n, token: String(i), bot: true }));
@@ -77,6 +89,7 @@ async function playOut(names = ['Ann', 'Bob', 'Cy'], maxMoves = 500) {
   let positions = 0;
   for (let i = 0; i < maxMoves && t.status === 'playing'; i++) {
     await dealIfDue(t, i);
+    checkSecrecy(t);
     if (t.status !== 'playing') break;
     const v = G.view(t, t.turn);
     const m = botMove(v);
@@ -87,7 +100,7 @@ async function playOut(names = ['Ann', 'Bob', 'Cy'], maxMoves = 500) {
   return { t, positions };
 }
 
-test('the bot always makes a legal move (1,000+ positions)', async () => {
+test('the bot always makes a legal move, and no view of any seat leaks (1,000+ positions)', async () => {
   let positions = 0, games = 0;
   while (positions < 1000) { const r = await playOut(); assert.equal(r.t.status, 'over'); positions += r.positions; games++; }
   assert.ok(games > 5);
@@ -112,6 +125,16 @@ test('verify accepts a real record and rejects tampering', async () => {
 
   const badRank = clone(); badRank.ranking = badRank.ranking.slice().reverse();
   assert.equal((await verify(badRank)).ok, false);
+
+  const badStart = clone(); badStart.players[0].name = 'Mallory';
+  assert.equal((await verify(badStart)).ok, false, 'renamed player without the start event');
+
+  const badClock = clone(); const ch = badClock.events.findLastIndex((e) => e.type === 'challenge');
+  badClock.events[ch] = { type: 'timeout', at: badClock.events[ch - 1].at + 1, seat: badClock.events[ch].seat };
+  assert.equal((await verify(badClock)).ok, false, 'a timeout before the deadline');
+
+  const badTime = clone(); badTime.events.at(-1).at = 0;
+  assert.equal((await verify(badTime)).ok, false, 'time running backwards');
 });
 
 test('dealAll matches deal per seat', async () => {

@@ -88,9 +88,10 @@ async function watch(code) {
       const v = await tool('get_state', me.version == null ? { table: code } : { table: code, since: me.version, wait_seconds: 20 });
       if (app.watch !== me) return;
       me.version = v.version;
+      if (v.status === 'playing' && v.commit) me.commit = v.commit; // seen before the end: the record must match it
       renderBoard(v);
       if (v.status === 'over') {
-        const r = await fetch(v.record_url); if (r.ok) showVerify(await r.json());
+        const r = await fetch(v.record_url); if (r.ok) showVerify(await r.json(), me.commit);
         return;
       }
     } catch (e) {
@@ -151,10 +152,16 @@ async function openRecording(file, title) {
 }
 
 // ---------- verify ----------
-function showVerify(rec) {
+function showVerify(rec, seenCommit) {
   app.rec = rec;
   $('verify').hidden = false; $('commit').textContent = rec.commit.slice(0, 16) + '…';
   $('verify-steps').replaceChildren();
+  const seen = $('commit-seen');
+  seen.hidden = !seenCommit;
+  if (seenCommit) {
+    seen.className = seenCommit === rec.commit ? 'fine ok-text' : 'bad-text';
+    seen.textContent = seenCommit === rec.commit ? 'This page watched the game live: the commitment in the record is the one it showed before the end.' : `Warning: while the game ran this page saw commitment ${seenCommit.slice(0, 16)}…, but the record says ${rec.commit.slice(0, 16)}….`;
+  }
 }
 async function runVerify() {
   const ol = $('verify-steps'); ol.replaceChildren();
@@ -185,7 +192,7 @@ function onKey(k) {
   app.key = k;
   if (!k && app.run) app.run.ctrl.abort();
   $('seat-form').hidden = !k;
-  $('seat-hint').textContent = k ? 'Pick 2 to 4 models. Each turn is one call from this browser with your key; the game server only sees the bid.' : 'Sign in with Pollinations to seat models. Calls go from this browser to gen.pollinations.ai with your key; the game server only ever sees bids.';
+  $('seat-hint').textContent = k ? 'Pick 1 to 4 models (one alone plays Croupier, the house bot). Each turn is one call from this browser with your key; the game server only sees the bid.' : 'Sign in with Pollinations to seat models. Calls go from this browser to gen.pollinations.ai with your key; the game server only ever sees bids.';
   if (k && !app.models.length) loadModels();
 }
 async function loadModels() {
@@ -213,7 +220,8 @@ async function startGame() {
   $('start').disabled = true; $('stop').hidden = false; $('log').replaceChildren();
   const spend = () => { $('spend').textContent = `${guard.calls} calls, about ${guard.spent.toFixed(5)} Pollen spent (cap ${MAX_SPEND}).`; };
   try {
-    const { table } = await tool('create_table', { seats: Math.max(2, seats), dice: Number($('dice').value), public: true });
+    // A table waiting for your own agent stays off the public list, so quick match cannot take that seat.
+    const { table } = await tool('create_table', { seats: Math.max(2, seats), dice: Number($('dice').value), public: !agentSeat });
     const tokens = [];
     for (const m of models) tokens.push((await tool('join_table', { table, name: short(m.id) })).token);
     log(`Table ${table}: ${models.map((m) => short(m.id)).join(', ')} seated.`);

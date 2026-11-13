@@ -34,10 +34,21 @@ export async function verify(rec) {
     if (!step('The seed matches the commitment shown before the first bid', typeof rec.seed === 'string' && await sha256hex(rec.seed) === rec.commit)) return fail();
     const t = G.newTable({ code: rec.table, ...rec.config });
     rec.players.forEach((p) => G.join(t, { name: p.name, token: '', bot: p.bot }));
-    let started = false;
+    let started = false, last = -Infinity;
     for (const e of rec.events) {
-      if (e.type === 'start') { G.start(t, { seed: rec.seed, commit: rec.commit, now: e.at }); started = true; continue; }
+      if (!(Number.isFinite(e.at) && e.at >= last)) { step('The log runs forward in time', false, `${e.type} at ${e.at}`); return fail(); }
+      last = e.at;
+      if (e.type === 'start') {
+        const same = e.commit === rec.commit && JSON.stringify(e.config) === JSON.stringify(rec.config) &&
+          JSON.stringify(e.players) === JSON.stringify(rec.players.map((p) => ({ name: p.name, bot: p.bot })));
+        if (!step('The start of the log names the same players, settings and commitment', same)) return fail();
+        G.start(t, { seed: rec.seed, commit: rec.commit, now: e.at }); started = true; continue;
+      }
       if (!started) { step('The log starts with start', false); return fail(); }
+      // The clock: a move must land before the turn's deadline, a timeout at or after it.
+      if (e.type !== 'deal' && (e.type === 'timeout' ? e.at < t.deadline : e.at >= t.deadline)) {
+        step(`Round ${t.round}: ${e.type} logged on the wrong side of the turn clock`, false); return fail();
+      }
       if (e.type === 'deal') {
         if (e.round !== t.round || !t.dealPending) { step(`Round ${e.round}: dealt out of order`, false); return fail(); }
         const want = await dealAll(rec.seed, t.round, G.handSizes(t));

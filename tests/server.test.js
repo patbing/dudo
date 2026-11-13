@@ -13,8 +13,8 @@ const meta = { 'io.modelcontextprotocol/protocolVersion': '2026-07-28' };
 test('transport: methods, origin, body, notifications', async () => {
   assert.equal((await handle({ method: 'GET', headers: {}, body: '' })).status, 405);
   assert.equal((await handle({ method: 'OPTIONS', headers: { origin: 'https://patbing.github.io' }, body: '' })).status, 204);
-  const evil = await handle({ method: 'POST', headers: H({ origin: 'https://evil.example' }), body: '{}' });
-  assert.equal(evil.status, 403);
+  const other = await handle({ method: 'POST', headers: H({ origin: 'https://other.example' }), body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'ping' }) }, async () => ({}));
+  assert.equal(other.status, 200); assert.equal(other.headers['access-control-allow-origin'], 'https://other.example');
   const ok = await post({ jsonrpc: '2.0', id: 1, method: 'ping' }, H({ origin: 'http://127.0.0.1:5500' }));
   assert.equal(ok.headers['access-control-allow-origin'], 'http://127.0.0.1:5500');
   assert.ok(!ok.headers['access-control-allow-headers'].includes('authorization'));
@@ -81,7 +81,28 @@ test('tools: quick match, bots, long-poll wakes, timeout, record', async () => {
   if (st.status !== 'over') { clock += 61_000; await table(a.table).tick(); st = await call('get_state', { table: a.table }); }
   assert.equal(st.status, 'over');
   assert.ok(st.seed && st.record_url.endsWith(`/record/${a.table}`));
-  await assert.rejects(call('bid', { table: a.table, token: 'f'.repeat(32), quantity: 9, face: 6 }), /not seated/);
+  await assert.rejects(call('bid', { table: a.table, token: 'f'.repeat(32), quantity: 9, face: 6 }), /not seated/);});
+
+test('a move after the clock ran out is refused, not applied to the next round', async () => {
+  let clock = 5_000_000;
+  const { lobby, table } = await createLocal({ now: () => clock });
+  const call = makeCall({ lobby, table, recordBase: 'http://x' });
+  const a = await call('join_table', { name: 'Ann' }); const b = await call('join_table', { table: a.table, name: 'Bob' });
+  await call('start_game', { table: a.table, token: a.token });
+  clock += 61_000; // Ann (on turn) lets the clock run out, then her bid arrives
+  await assert.rejects(call('bid', { table: a.table, token: a.token, quantity: 1, face: 3 }), /clock ran out/);
+  const v = await call('get_state', { table: a.table, token: b.token });
+  assert.equal(v.round, 2); assert.equal(v.bids.length, 0); assert.equal(v.players[0].dice, 2);
+});
+
+test('quick match skips open tables nobody touched for two minutes', async () => {
+  let clock = 9_000_000;
+  const { lobby, table } = await createLocal({ now: () => clock });
+  const call = makeCall({ lobby, table, recordBase: 'http://x' });
+  const ghost = await call('join_table', { name: 'curl' });
+  clock += 121_000;
+  const fresh = await call('join_table', { name: 'agent' });
+  assert.notEqual(fresh.table, ghost.table);
 });
 
 test('smoke: a full game over HTTP against the local server, verified', async () => {

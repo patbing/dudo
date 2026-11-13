@@ -36,7 +36,7 @@ export class LobbyCore {
     }
   }
   quick() {
-    const open = Object.values(this.d.tables).filter((x) => x.status === 'lobby' && x.public && x.players < x.seats).sort((a, b) => a.created - b.created);
+    const open = Object.values(this.d.tables).filter((x) => x.status === 'lobby' && x.public && x.players < x.seats && this.io.now() - x.updated < 120e3) // skip tables nobody touched for 2 minutes.sort((a, b) => a.created - b.created);
     return open.length ? open[0].table : null;
   }
   list() {

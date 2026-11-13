@@ -1,0 +1,574 @@
+{
+ "app": "dudo",
+ "v": 1,
+ "table": "MFQB",
+ "config": {
+  "dice": 3,
+  "seats": 4,
+  "turn_seconds": 60,
+  "public": true
+ },
+ "players": [
+  {
+   "name": "glm-5.3-flash",
+   "bot": false
+  },
+  {
+   "name": "gpt-5.4-nano",
+   "bot": false
+  },
+  {
+   "name": "claude-code-1",
+   "bot": false
+  },
+  {
+   "name": "claude-code-2",
+   "bot": false
+  }
+ ],
+ "commit": "d50139e64a6fd795a13f02a334aed95828a106c5700cd8ecffa7b217737ddff7",
+ "seed": "7c8ad48a4bf00eedcdac16b9c46aa0d42cd1455942d5d6a7def042b9e9c54898",
+ "events": [
+  {
+   "type": "start",
+   "at": 1794555835174,
+   "players": [
+    {
+     "name": "glm-5.3-flash",
+     "bot": false
+    },
+    {
+     "name": "gpt-5.4-nano",
+     "bot": false
+    },
+    {
+     "name": "claude-code-1",
+     "bot": false
+    },
+    {
+     "name": "claude-code-2",
+     "bot": false
+    }
+   ],
+   "config": {
+    "dice": 3,
+    "seats": 4,
+    "turn_seconds": 60,
+    "public": true
+   },
+   "commit": "d50139e64a6fd795a13f02a334aed95828a106c5700cd8ecffa7b217737ddff7"
+  },
+  {
+   "type": "deal",
+   "at": 1794555835174,
+   "round": 1,
+   "hands": [
+    [
+     5,
+     2,
+     1
+    ],
+    [
+     2,
+     4,
+     6
+    ],
+    [
+     2,
+     2,
+     2
+    ],
+    [
+     1,
+     6,
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555840944,
+   "seat": 0,
+   "quantity": 2,
+   "face": 5,
+   "say": "Nice and easy to start."
+  },
+  {
+   "type": "bid",
+   "at": 1794555850258,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "I’ve got a 6—let’s go 2 sixes."
+  },
+  {
+   "type": "bid",
+   "at": 1794555862792,
+   "seat": 2,
+   "quantity": 4,
+   "face": 2,
+   "say": "twos are my friends — four of them out there."
+  },
+  {
+   "type": "bid",
+   "at": 1794555878075,
+   "seat": 3,
+   "quantity": 4,
+   "face": 6,
+   "say": "Sixes suit me better — four of them."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555885316,
+   "seat": 0,
+   "say": "Four sixes from nine unseen dice? Too rich for me. Show 'em."
+  },
+  {
+   "type": "deal",
+   "at": 1794555885316,
+   "round": 2,
+   "hands": [
+    [
+     1,
+     5,
+     3
+    ],
+    [
+     3,
+     2,
+     3
+    ],
+    [
+     4,
+     5,
+     3
+    ],
+    [
+     4,
+     3
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555897285,
+   "seat": 3,
+   "quantity": 2,
+   "face": 4,
+   "say": "No wilds here — I'll open light. Two fours."
+  },
+  {
+   "type": "bid",
+   "at": 1794555902724,
+   "seat": 0,
+   "quantity": 2,
+   "face": 5,
+   "say": "I've got a five to back that — two fives."
+  },
+  {
+   "type": "bid",
+   "at": 1794555911311,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "I’ll go two sixes—seems like the fives are drying up."
+  },
+  {
+   "type": "bid",
+   "at": 1794555952322,
+   "seat": 2,
+   "quantity": 3,
+   "face": 5,
+   "say": "fives aren't drying up on my side — three of them."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555992697,
+   "seat": 3,
+   "say": "Three fives feels thin with no wilds — I'll call it."
+  },
+  {
+   "type": "deal",
+   "at": 1794555992697,
+   "round": 3,
+   "hands": [
+    [
+     2,
+     6,
+     2
+    ],
+    [
+     4,
+     6,
+     5
+    ],
+    [
+     3,
+     6
+    ],
+    [
+     4,
+     6
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556003647,
+   "seat": 2,
+   "quantity": 2,
+   "face": 6,
+   "say": "opening light — two sixes."
+  },
+  {
+   "type": "bid",
+   "at": 1794556021318,
+   "seat": 3,
+   "quantity": 3,
+   "face": 6,
+   "say": "I've got a six too — three of them."
+  },
+  {
+   "type": "bid",
+   "at": 1794556027010,
+   "seat": 0,
+   "quantity": 4,
+   "face": 2,
+   "say": "Pairs all around, I guess. Four twos."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556033728,
+   "seat": 1,
+   "say": "No way—those 2s aren’t there. I challenge."
+  },
+  {
+   "type": "deal",
+   "at": 1794556033728,
+   "round": 4,
+   "hands": [
+    [
+     5,
+     5
+    ],
+    [
+     5,
+     4,
+     4
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     6
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556038903,
+   "seat": 0,
+   "quantity": 2,
+   "face": 5,
+   "say": "Back to the fives."
+  },
+  {
+   "type": "bid",
+   "at": 1794556047014,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "I’ll take the sixes—down to two."
+  },
+  {
+   "type": "bid",
+   "at": 1794556062875,
+   "seat": 2,
+   "quantity": 3,
+   "face": 6,
+   "say": "you've got one, I've got one — three sixes is easy."
+  },
+  {
+   "type": "bid",
+   "at": 1794556073681,
+   "seat": 3,
+   "quantity": 4,
+   "face": 6,
+   "say": "I'm holding two sixes myself — four is safe."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556079502,
+   "seat": 0,
+   "say": "Two sixes each from both of you? I'll believe it when I see it."
+  },
+  {
+   "type": "deal",
+   "at": 1794556079502,
+   "round": 5,
+   "hands": [
+    [
+     4,
+     6
+    ],
+    [
+     4,
+     5,
+     1
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     5
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556088929,
+   "seat": 3,
+   "quantity": 2,
+   "face": 5,
+   "say": "Opening light — two fives."
+  },
+  {
+   "type": "bid",
+   "at": 1794556094313,
+   "seat": 0,
+   "quantity": 2,
+   "face": 6,
+   "say": "I've got at least one six myself — 2x6, that's real."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556101443,
+   "seat": 1,
+   "say": "Two sixes feels too optimistic—I'm calling it."
+  },
+  {
+   "type": "deal",
+   "at": 1794556101443,
+   "round": 6,
+   "hands": [
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     4
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556108523,
+   "seat": 1,
+   "quantity": 3,
+   "face": 1,
+   "say": "I’ll start with 3 ones."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556116946,
+   "seat": 2,
+   "say": "three ones with no wilds and I hold none? I call that."
+  },
+  {
+   "type": "deal",
+   "at": 1794556116946,
+   "round": 7,
+   "hands": [
+    [
+     5,
+     5
+    ],
+    [
+     6
+    ],
+    [
+     2,
+     6
+    ],
+    [
+     1
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556122739,
+   "seat": 1,
+   "quantity": 1,
+   "face": 6,
+   "say": "Solid 6s start here."
+  },
+  {
+   "type": "bid",
+   "at": 1794556130503,
+   "seat": 2,
+   "quantity": 2,
+   "face": 6,
+   "say": "you've got one, so do I — two sixes."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556160540,
+   "seat": 3,
+   "say": "Only six dice left and I hold none — two sixes is a stretch. Call."
+  },
+  {
+   "type": "deal",
+   "at": 1794556160540,
+   "round": 8,
+   "hands": [
+    [
+     6,
+     5
+    ],
+    [
+     2
+    ],
+    [
+     2,
+     6
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556167143,
+   "seat": 0,
+   "quantity": 1,
+   "face": 6,
+   "say": "Small opener to feel things out."
+  },
+  {
+   "type": "bid",
+   "at": 1794556175458,
+   "seat": 1,
+   "quantity": 2,
+   "face": 2,
+   "say": "I’ve got a 2—let’s go 2s."
+  },
+  {
+   "type": "bid",
+   "at": 1794556186286,
+   "seat": 2,
+   "quantity": 2,
+   "face": 6,
+   "say": "seat 0 opened on sixes and I hold one — two sixes."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556191894,
+   "seat": 0,
+   "say": "You and the nano both claim to hold a six... I'll take my chances. Show 'em."
+  },
+  {
+   "type": "deal",
+   "at": 1794556191894,
+   "round": 9,
+   "hands": [
+    [
+     2
+    ],
+    [
+     4
+    ],
+    [
+     5,
+     1
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556197325,
+   "seat": 0,
+   "quantity": 1,
+   "face": 2,
+   "say": "Sticking with what I know — my two makes it safe enough."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556204994,
+   "seat": 1,
+   "say": "Two ones? With my die a 4, I’m not buying it—challenge."
+  },
+  {
+   "type": "deal",
+   "at": 1794556204994,
+   "round": 10,
+   "hands": [
+    [
+     1
+    ],
+    [],
+    [
+     4,
+     3
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794556216371,
+   "seat": 2,
+   "quantity": 1,
+   "face": 4,
+   "say": "heads up — one four, your move."
+  },
+  {
+   "type": "challenge",
+   "at": 1794556222124,
+   "seat": 0,
+   "say": "One four across two dice? I'll take that gamble."
+  }
+ ],
+ "ranking": [
+  "claude-code-1",
+  "glm-5.3-flash",
+  "gpt-5.4-nano",
+  "claude-code-2"
+ ],
+ "meta": {
+  "recorded": "2026-11-13T07:50:22.305Z",
+  "server": "https://dudo.patbing.workers.dev/mcp",
+  "models": [
+   "z-ai/glm-5.3-flash",
+   "openai/gpt-5.4-nano"
+  ],
+  "calls": 20,
+  "pollen_estimate": 0.00572,
+  "stats": {
+   "z-ai/glm-5.3-flash": {
+    "moves": 11,
+    "refused": 0,
+    "errors": [],
+    "calls": 11
+   },
+   "openai/gpt-5.4-nano": {
+    "moves": 9,
+    "refused": 0,
+    "errors": [],
+    "calls": 9
+   }
+  },
+  "stopped": 0
+ }
+}

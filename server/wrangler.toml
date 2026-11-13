@@ -1,0 +1,21 @@
+name = "dudo"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+[[durable_objects.bindings]]
+name = "TABLE"
+class_name = "Table"
+
+[[durable_objects.bindings]]
+name = "LOBBY"
+class_name = "Lobby"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Table", "Lobby"]
+
+# 120 requests a minute per IP on /mcp (best effort, per location). Drop this block if a deploy refuses it.
+[[ratelimits]]
+name = "RL"
+namespace_id = "1001"
+simple = { limit = 120, period = 60 }

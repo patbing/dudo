@@ -1,0 +1,490 @@
+{
+ "app": "dudo",
+ "v": 1,
+ "table": "PQVD",
+ "config": {
+  "dice": 3,
+  "seats": 4,
+  "turn_seconds": 60,
+  "public": true
+ },
+ "players": [
+  {
+   "name": "glm-5.3-flash",
+   "bot": false
+  },
+  {
+   "name": "deepseek-v4.1-flash",
+   "bot": false
+  },
+  {
+   "name": "minimax-m3.1-flash",
+   "bot": false
+  },
+  {
+   "name": "gpt-5.4-nano",
+   "bot": false
+  }
+ ],
+ "commit": "6c9fbc8e1f556c824f0863a64eb7a632a0dc5d00487c41f26d25ad6c422075c4",
+ "seed": "34e515391621659ba48ec79fc2aace24a54f7c80a8831fa746ec7bcaa484cc6f",
+ "events": [
+  {
+   "type": "start",
+   "at": 1794555573142,
+   "players": [
+    {
+     "name": "glm-5.3-flash",
+     "bot": false
+    },
+    {
+     "name": "deepseek-v4.1-flash",
+     "bot": false
+    },
+    {
+     "name": "minimax-m3.1-flash",
+     "bot": false
+    },
+    {
+     "name": "gpt-5.4-nano",
+     "bot": false
+    }
+   ],
+   "config": {
+    "dice": 3,
+    "seats": 4,
+    "turn_seconds": 60,
+    "public": true
+   },
+   "commit": "6c9fbc8e1f556c824f0863a64eb7a632a0dc5d00487c41f26d25ad6c422075c4"
+  },
+  {
+   "type": "deal",
+   "at": 1794555573142,
+   "round": 1,
+   "hands": [
+    [
+     6,
+     6,
+     3
+    ],
+    [
+     6,
+     4,
+     5
+    ],
+    [
+     6,
+     4,
+     1
+    ],
+    [
+     6,
+     3,
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555579037,
+   "seat": 0,
+   "quantity": 3,
+   "face": 6,
+   "say": "Two sixes in my hand — I'll start modest but honest."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555587849,
+   "seat": 1,
+   "say": "No sixes in my hand at all — 3 in the other nine? That math doesn't add up. Show 'em."
+  },
+  {
+   "type": "deal",
+   "at": 1794555587849,
+   "round": 2,
+   "hands": [
+    [
+     5,
+     1,
+     6
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     5,
+     1,
+     6
+    ],
+    [
+     6,
+     3,
+     1
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555601550,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "Eleven dice, plenty of sixes out there. Let's start modest."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555614736,
+   "seat": 2,
+   "say": "Only 11 dice out there and you're asking for two sixes — I smell air. Let's see your sixes."
+  },
+  {
+   "type": "deal",
+   "at": 1794555614736,
+   "round": 3,
+   "hands": [
+    [
+     2,
+     3,
+     6
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     4,
+     1,
+     3
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555621346,
+   "seat": 2,
+   "quantity": 2,
+   "face": 6,
+   "say": "Holding one six myself — let's see if anyone else can match."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555629756,
+   "seat": 3,
+   "say": "No sixes here—think this is a stretch. Challenge!"
+  },
+  {
+   "type": "deal",
+   "at": 1794555629756,
+   "round": 4,
+   "hands": [
+    [
+     1,
+     4,
+     5
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     3,
+     1
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555635503,
+   "seat": 3,
+   "quantity": 2,
+   "face": 1,
+   "say": "Two ones!"
+  },
+  {
+   "type": "bid",
+   "at": 1794555640871,
+   "seat": 0,
+   "quantity": 2,
+   "face": 4,
+   "say": "Your ones are cute, but I'll take real numbers."
+  },
+  {
+   "type": "bid",
+   "at": 1794555650256,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "Fine, real numbers it is — two sixes."
+  },
+  {
+   "type": "bid",
+   "at": 1794555657677,
+   "seat": 2,
+   "quantity": 3,
+   "face": 4,
+   "say": "Three fours — I've got two in hand, and someone else's got to be hiding one."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555663436,
+   "seat": 3,
+   "say": "“Three fours” seems too rich—I'll call it!"
+  },
+  {
+   "type": "deal",
+   "at": 1794555663436,
+   "round": 5,
+   "hands": [
+    [
+     5,
+     4,
+     5
+    ],
+    [
+     6,
+     4
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     6
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555669402,
+   "seat": 3,
+   "quantity": 1,
+   "face": 6,
+   "say": "One 6—let’s go."
+  },
+  {
+   "type": "bid",
+   "at": 1794555674578,
+   "seat": 0,
+   "quantity": 2,
+   "face": 5,
+   "say": "Two fives, I've got a pair myself."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555686261,
+   "seat": 1,
+   "say": "Two fives? I don't have a single one—show me."
+  },
+  {
+   "type": "deal",
+   "at": 1794555686261,
+   "round": 6,
+   "hands": [
+    [
+     3,
+     4,
+     3
+    ],
+    [
+     3
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555693677,
+   "seat": 1,
+   "quantity": 1,
+   "face": 3,
+   "say": "Starting small — one three to open."
+  },
+  {
+   "type": "bid",
+   "at": 1794555704073,
+   "seat": 2,
+   "quantity": 1,
+   "face": 4,
+   "say": "I'm holding a 3 already, so let me put a 4 up — one four across the table, easy money if anyone's got a four."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555710869,
+   "seat": 3,
+   "say": "That’s gotta be a lie—4 fours with only 7 dice? No way."
+  },
+  {
+   "type": "deal",
+   "at": 1794555710869,
+   "round": 7,
+   "hands": [
+    [
+     5,
+     5,
+     2
+    ],
+    [
+     1
+    ],
+    [
+     2,
+     6
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555714919,
+   "seat": 0,
+   "quantity": 2,
+   "face": 5,
+   "say": "Pair of fives for me. Anybody holding more?"
+  },
+  {
+   "type": "challenge",
+   "at": 1794555734588,
+   "seat": 1
+  },
+  {
+   "type": "deal",
+   "at": 1794555734588,
+   "round": 8,
+   "hands": [
+    [
+     4,
+     4,
+     6
+    ],
+    [],
+    [
+     3,
+     1
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555756142,
+   "seat": 2,
+   "quantity": 1,
+   "face": 3,
+   "say": "Opening soft with a single three — I might be holding more, but let's see what you do."
+  },
+  {
+   "type": "bid",
+   "at": 1794555763000,
+   "seat": 0,
+   "quantity": 2,
+   "face": 4,
+   "say": "Got a pair of fours myself — I'll show you a real bid."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555768670,
+   "seat": 2,
+   "say": "Two fours with only three dice out there? Come on, show me."
+  },
+  {
+   "type": "deal",
+   "at": 1794555768670,
+   "round": 9,
+   "hands": [
+    [
+     4,
+     6,
+     2
+    ],
+    [],
+    [
+     6
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794555777069,
+   "seat": 2,
+   "quantity": 1,
+   "face": 6,
+   "say": "One six, straight up — I hold the only six I'd bet on, so call it a lie if you dare."
+  },
+  {
+   "type": "bid",
+   "at": 1794555781428,
+   "seat": 0,
+   "quantity": 2,
+   "face": 6,
+   "say": "Straight up? I've got a six myself, so keep dreaming. Two sixes."
+  },
+  {
+   "type": "challenge",
+   "at": 1794555789734,
+   "seat": 2,
+   "say": "Two sixes with three dice? The math says no — you need a six among yours, and I'd bet that isn't there."
+  }
+ ],
+ "ranking": [
+  "glm-5.3-flash",
+  "minimax-m3.1-flash",
+  "deepseek-v4.1-flash",
+  "gpt-5.4-nano"
+ ],
+ "meta": {
+  "recorded": "2026-11-13T07:43:09.906Z",
+  "server": "https://dudo.patbing.workers.dev/mcp",
+  "models": [
+   "z-ai/glm-5.3-flash",
+   "deepseek/deepseek-v4.1-flash",
+   "minimax/minimax-m3.1-flash",
+   "openai/gpt-5.4-nano"
+  ],
+  "calls": 26,
+  "pollen_estimate": 0.01015,
+  "stats": {
+   "z-ai/glm-5.3-flash": {
+    "moves": 6,
+    "refused": 0,
+    "errors": [],
+    "calls": 6
+   },
+   "deepseek/deepseek-v4.1-flash": {
+    "moves": 6,
+    "refused": 1,
+    "errors": [],
+    "calls": 7
+   },
+   "minimax/minimax-m3.1-flash": {
+    "moves": 8,
+    "refused": 0,
+    "errors": [],
+    "calls": 8
+   },
+   "openai/gpt-5.4-nano": {
+    "moves": 5,
+    "refused": 0,
+    "errors": [],
+    "calls": 5
+   }
+  },
+  "stopped": 0
+ }
+}

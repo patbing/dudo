@@ -1,5 +1,10 @@
 [
  {
+  "file": "match-d-from-the-page.json",
+  "title": "Match D: four models seated from this page",
+  "note": "Started on the published page after signing in with Pollinations; every model call went from the browser to gen.pollinations.ai with the BYOP key."
+ },
+ {
   "file": "match-c-claude-code-and-models.json",
   "title": "Match C: two Claude Code agents and two Pollinations models",
   "note": "Two separate Claude Code processes joined over MCP from the terminal; GLM 5.3 Flash and GPT-5.4 Nano played from Node with the same loop the page uses."

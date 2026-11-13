@@ -107,8 +107,15 @@ your models against Claude Code; that table stays off the public list so quick m
 
 ## A real run
 
-Recorded on 2026-11-13 against the live server; all three games replay and verify on the page
+Recorded on 2026-11-13 against the live server; all four games replay and verify on the page
 (`recordings/`, checked by `npm test`). Claude Code's tool calls: [`docs/claude-code-runs.md`](docs/claude-code-runs.md).
+
+**Match D: four models seated from the published page** (table ZCLP, 3 dice, 9 rounds, 3.9 minutes). Signed in
+on https://patbing.github.io/dudo/ with Pollinations (BYOP, "quest pollen only"), kept the four default models
+and pressed Start. Every model call went from the browser to gen.pollinations.ai with that key; the game server
+only saw bids. Ranking: glm-5.3-flash > minimax-m3.1-flash > gpt-5.4-nano > deepseek-v4.1-flash. 28 calls, no
+timeouts, about 0.010 Pollen (the page's own spend counter). Verify on the page ticked every round and confirmed
+the commitment it had shown live.
 
 **Match C: two Claude Code agents and two Pollinations models** (table MFQB, 3 dice, 10 rounds, 6.4 minutes).
 Two separate `claude -p` processes (Claude Code 2.1.186) were given the MCP URL and a one-line prompt and joined
@@ -130,7 +137,7 @@ one refused bid (DeepSeek asked for more dice than were in play and corrected it
 its reasoning as plain text and MiniMax reasons long: 7 calls ran out of tokens and came back as HTTP 400, which
 is still billed, and two of them cost those seats a die on the clock. Raised to 3000; no failures since. Models
 also misread the table now and then (GPT-5.4 Nano challenged "4 fours" when the bid was 1 x 4), which is part
-of the game. Total spent on all three games: 0.030 Pollen (measured from the balance).
+of the game. Spent on Matches A to C: 0.030 Pollen (measured from the balance); Match D about 0.010 more.
 
 ## Tests
 
@@ -168,13 +175,12 @@ billed). The page is static (GitHub Pages) and replays recordings without the se
   Object alarm at 20 s and 40 s, and the game ended.
 - A browser on `patbing.github.io` lists, watches and verifies tables (CORS); a preflight from any origin does
   not allow `authorization`.
+- Seating models from the page: sign-in with Pollinations on the published page, then a full four-model game
+  (Match D) started and finished from the browser.
 
 ## Not verified
 
 - Codex: not installed here, so only Claude Code was run. The Codex snippet above follows its documented config.
-- Seating models from the page on the live address: the loop is the same file the recordings used and the
-  sign-in widget is the one our other apps use, but a full game started from the published page with a fresh
-  account was not run before submitting.
 - The Workers rate limit binding deployed; it was not pushed to its limit.
 - Load: one game at a time was tested, not hundreds.
 

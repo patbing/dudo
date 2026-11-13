@@ -1,0 +1,487 @@
+{
+ "app": "dudo",
+ "v": 1,
+ "table": "ZCLP",
+ "config": {
+  "dice": 3,
+  "seats": 4,
+  "turn_seconds": 60,
+  "public": true
+ },
+ "players": [
+  {
+   "name": "glm-5.3-flash",
+   "bot": false
+  },
+  {
+   "name": "deepseek-v4.1-flash",
+   "bot": false
+  },
+  {
+   "name": "minimax-m3.1-flash",
+   "bot": false
+  },
+  {
+   "name": "gpt-5.4-nano",
+   "bot": false
+  }
+ ],
+ "commit": "2c45ee08116e88d1ef509035c27fcec9dede4d63b0c1642dd2af727cb2e5c891",
+ "seed": "c25f288208bcabdb17148bb27d74894e4405b5b11b20410861a3ccf33b0f8256",
+ "events": [
+  {
+   "type": "start",
+   "at": 1794557819954,
+   "players": [
+    {
+     "name": "glm-5.3-flash",
+     "bot": false
+    },
+    {
+     "name": "deepseek-v4.1-flash",
+     "bot": false
+    },
+    {
+     "name": "minimax-m3.1-flash",
+     "bot": false
+    },
+    {
+     "name": "gpt-5.4-nano",
+     "bot": false
+    }
+   ],
+   "config": {
+    "dice": 3,
+    "seats": 4,
+    "turn_seconds": 60,
+    "public": true
+   },
+   "commit": "2c45ee08116e88d1ef509035c27fcec9dede4d63b0c1642dd2af727cb2e5c891"
+  },
+  {
+   "type": "deal",
+   "at": 1794557819954,
+   "round": 1,
+   "hands": [
+    [
+     1,
+     3,
+     1
+    ],
+    [
+     5,
+     2,
+     1
+    ],
+    [
+     3,
+     4,
+     5
+    ],
+    [
+     4,
+     6,
+     6
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557826371,
+   "seat": 0,
+   "quantity": 3,
+   "face": 1,
+   "say": "Pair of ones to start — let's see who bites."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557834865,
+   "seat": 1,
+   "say": "Only one lonely pip in my cup — I don't buy three ones from that opening."
+  },
+  {
+   "type": "deal",
+   "at": 1794557834865,
+   "round": 2,
+   "hands": [
+    [
+     4,
+     1,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     4,
+     5,
+     5
+    ],
+    [
+     4,
+     2,
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557843425,
+   "seat": 1,
+   "quantity": 2,
+   "face": 3,
+   "say": "Let's start modest—two threes."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557851622,
+   "seat": 2,
+   "say": "I hold no threes—let's see the other eight dice. I smell a bluff."
+  },
+  {
+   "type": "deal",
+   "at": 1794557851622,
+   "round": 3,
+   "hands": [
+    [
+     2,
+     3,
+     4
+    ],
+    [
+     6
+    ],
+    [
+     6,
+     1,
+     1
+    ],
+    [
+     1,
+     4,
+     4
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557865657,
+   "seat": 1,
+   "quantity": 1,
+   "face": 6,
+   "say": "One six is already on the table—prove me wrong."
+  },
+  {
+   "type": "bid",
+   "at": 1794557874547,
+   "seat": 2,
+   "quantity": 2,
+   "face": 1,
+   "say": "Two ones—I've got a pair right here, and ten dice on the table won't argue with that."
+  },
+  {
+   "type": "bid",
+   "at": 1794557885887,
+   "seat": 3,
+   "quantity": 2,
+   "face": 2,
+   "say": "I’m going with two twos—shouldn’t be too hard with all these dice about."
+  },
+  {
+   "type": "bid",
+   "at": 1794557891544,
+   "seat": 0,
+   "quantity": 2,
+   "face": 3,
+   "say": "Raised to twos... I mean threes—I've got one myself."
+  },
+  {
+   "type": "bid",
+   "at": 1794557904065,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "Two sixes—I'm holding one myself, so come and prove me wrong if you dare."
+  },
+  {
+   "type": "bid",
+   "at": 1794557915463,
+   "seat": 2,
+   "quantity": 3,
+   "face": 1,
+   "say": "Two ones in my hand plus at least one more hiding out there—let's make it three."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557924673,
+   "seat": 3,
+   "say": "Three ones? I’ve only got one... let’s see if the table’s lying."
+  },
+  {
+   "type": "deal",
+   "at": 1794557924673,
+   "round": 4,
+   "hands": [
+    [
+     1,
+     1,
+     5
+    ],
+    [
+     4
+    ],
+    [
+     2,
+     2,
+     4
+    ],
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557931250,
+   "seat": 3,
+   "quantity": 2,
+   "face": 1,
+   "say": "Two ones—easy."
+  },
+  {
+   "type": "bid",
+   "at": 1794557936559,
+   "seat": 0,
+   "quantity": 3,
+   "face": 2,
+   "say": "I've got two ones myself, but let's climb. Three twos."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557946269,
+   "seat": 1,
+   "say": "Three twos with only one die in my hand? I'm not buying it."
+  },
+  {
+   "type": "deal",
+   "at": 1794557946269,
+   "round": 5,
+   "hands": [
+    [
+     4,
+     1,
+     1
+    ],
+    [],
+    [
+     4,
+     2,
+     4
+    ],
+    [
+     4,
+     3
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557951666,
+   "seat": 2,
+   "quantity": 2,
+   "face": 4,
+   "say": "Opening with a pair of fours — my dice say it happens."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557962649,
+   "seat": 3,
+   "say": "I’ve only got one four... prove it!"
+  },
+  {
+   "type": "deal",
+   "at": 1794557962649,
+   "round": 6,
+   "hands": [
+    [
+     3,
+     6,
+     2
+    ],
+    [],
+    [
+     2,
+     3,
+     6
+    ],
+    [
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557969490,
+   "seat": 3,
+   "quantity": 1,
+   "face": 6,
+   "say": "Let’s go with 1 six."
+  },
+  {
+   "type": "bid",
+   "at": 1794557975552,
+   "seat": 0,
+   "quantity": 2,
+   "face": 2,
+   "say": "Raising you, gpt-5.4 — I've got a 2, let's see yours."
+  },
+  {
+   "type": "challenge",
+   "at": 1794557982469,
+   "seat": 2,
+   "say": "Seven dice and only two twos? That's a stretch — calling it."
+  },
+  {
+   "type": "deal",
+   "at": 1794557982469,
+   "round": 7,
+   "hands": [
+    [
+     2,
+     4,
+     3
+    ],
+    [],
+    [
+     3,
+     6
+    ],
+    [
+     1
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794557991632,
+   "seat": 2,
+   "quantity": 1,
+   "face": 6,
+   "say": "Starting soft — one six. Let's see who wants to talk."
+  },
+  {
+   "type": "bid",
+   "at": 1794558000511,
+   "seat": 3,
+   "quantity": 2,
+   "face": 1,
+   "say": "I’ve got a 1—let’s go 2 ones."
+  },
+  {
+   "type": "challenge",
+   "at": 1794558008268,
+   "seat": 0,
+   "say": "Two ones across three dice with none showing? I'll take my chances."
+  },
+  {
+   "type": "deal",
+   "at": 1794558008268,
+   "round": 8,
+   "hands": [
+    [
+     2,
+     3,
+     4
+    ],
+    [],
+    [
+     3,
+     4
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794558013102,
+   "seat": 0,
+   "quantity": 2,
+   "face": 3,
+   "say": "Fresh round — starting light with a pair of threes."
+  },
+  {
+   "type": "challenge",
+   "at": 1794558018934,
+   "seat": 2,
+   "say": "Five dice for a pair of threes? I smell a bluff — let's see them."
+  },
+  {
+   "type": "deal",
+   "at": 1794558018934,
+   "round": 9,
+   "hands": [
+    [
+     6,
+     2,
+     2
+    ],
+    [],
+    [
+     4
+    ],
+    []
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794558029127,
+   "seat": 2,
+   "quantity": 1,
+   "face": 5,
+   "say": "Starting soft with a single five — let's see who wants to talk."
+  },
+  {
+   "type": "bid",
+   "at": 1794558034754,
+   "seat": 0,
+   "quantity": 2,
+   "face": 2,
+   "say": "Got a pair of deuces myself — raise you to 2 x 2."
+  },
+  {
+   "type": "bid",
+   "at": 1794558046348,
+   "seat": 2,
+   "quantity": 2,
+   "face": 3,
+   "say": "Two threes — I saw those last round, so I'm raising on solid ground."
+  },
+  {
+   "type": "challenge",
+   "at": 1794558051937,
+   "seat": 0,
+   "say": "You've got one die left and I hold zero threes — that 2 x 3 needs a miracle. Show 'em."
+  }
+ ],
+ "ranking": [
+  "glm-5.3-flash",
+  "minimax-m3.1-flash",
+  "gpt-5.4-nano",
+  "deepseek-v4.1-flash"
+ ],
+ "meta": {
+  "recorded": "2026-11-13T08:21:35.113Z",
+  "server": "https://dudo.patbing.workers.dev/mcp",
+  "source": "Started from https://patbing.github.io/dudo/ after signing in with Pollinations (quest pollen only); each turn one call from the browser with the BYOP key.",
+  "models": [
+   "glm-5.3-flash",
+   "deepseek-v4.1-flash",
+   "minimax-m3.1-flash",
+   "gpt-5.4-nano"
+  ],
+  "calls": 28,
+  "pollen_estimate": 0.01038
+ }
+}

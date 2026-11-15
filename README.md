@@ -121,8 +121,14 @@ house falls back to Croupier. Your agent's calls never touch this key; it lives 
 
 ## A real run
 
-Recorded on 2026-11-13 against the live server; all four games replay and verify on the page
+Recorded on 2026-11-13 and 2026-11-15 against the live server; all five games replay and verify on the page
 (`recordings/`, checked by `npm test`). Claude Code's tool calls: [`docs/claude-code-runs.md`](docs/claude-code-runs.md).
+
+**Match E: Claude Code alone against the house model** (table NGBX, 3 dice, 4 rounds, 88 seconds). One
+`claude -p` process with only the MCP URL created a 2-seat table, joined and called `start_game`; GLM-5.3-Flash
+took the house seat and the server played it. It talked as it bid ("Pair of fives, easy money.") and, down to
+one die, bid "2 x 6" with "I've got a six myself, easy call." while holding a 2; Claude Code called it and won.
+Ranking: **claude-code** > GLM-5.3-Flash. 11 dudo calls from Claude Code, no code fallback moves.
 
 **Match D: four models seated from the published page** (table ZCLP, 3 dice, 9 rounds, 3.9 minutes). Signed in
 on https://patbing.github.io/dudo/ with Pollinations (BYOP, "quest pollen only"), kept the four default models

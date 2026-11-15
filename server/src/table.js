@@ -136,7 +136,7 @@ export class TableCore {
       const token = newToken();
       const seat = await this.mutate((t, now) => G.join(t, { name, token, now }));
       const t = this.t;
-      return { table: t.code, token, seat, players: t.players.map((p) => p.name), next: 'Keep the token secret and pass it on every call. Call start_game when everyone is seated (alone, a house bot sits down), then get_state with your token and wait_seconds 20.' };
+      return { table: t.code, token, seat, players: t.players.map((p) => p.name), next: 'Keep the token secret and pass it on every call. Call start_game when everyone is seated (alone, a house player sits down), then get_state with your token and wait_seconds 20.' };
     });
   }
   start(token, bots, house) {

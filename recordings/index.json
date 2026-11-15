@@ -1,5 +1,10 @@
 [
  {
+  "file": "match-e-claude-code-vs-house-model.json",
+  "title": "Match E: Claude Code alone against the house model",
+  "note": "One claude -p process with only the MCP URL created a table and started; GLM 5.3 Flash took the house seat, played by the server with its own capped key. Tool calls: docs/claude-code-runs.md."
+ },
+ {
   "file": "match-d-from-the-page.json",
   "title": "Match D: four models seated from this page",
   "note": "Started on the published page after signing in with Pollinations; every model call went from the browser to gen.pollinations.ai with the BYOP key."

@@ -61,7 +61,7 @@ export function join(t, { name, token, bot = false, now = 0 }) {
 // `seed` stays in the server's copy and only appears in views once the game is over.
 export function start(t, { seed, commit, now = 0 }) {
   if (t.status !== 'lobby') throw new Error('The game has already started.');
-  if (t.players.length < 2) throw new Error('At least two players are needed (start_game adds a house bot when you are alone).');
+  if (t.players.length < 2) throw new Error('At least two players are needed (start_game adds a house player when you are alone).');
   for (const p of t.players) p.dice = t.config.dice;
   t.status = 'playing'; t.seed = seed; t.commit = commit; t.round = 1; t.opener = 0; t.dealPending = true;
   t.events.push({ type: 'start', at: now, players: t.players.map((p) => ({ name: p.name, bot: p.bot })), config: t.config, commit });
@@ -172,7 +172,7 @@ export function view(t, seat = null) {
 }
 
 function nextHint(t, v) {
-  if (t.status === 'lobby') return 'Waiting for players. Call start_game when ready (alone, a house bot sits down).';
+  if (t.status === 'lobby') return 'Waiting for players. Call start_game when ready (alone, a house player sits down).';
   if (t.status === 'over') return `The game is over. Ranking: ${t.ranking.join(', ')}.`;
   if (v.you.dice.length === 0 && t.players[v.you.seat].dice === 0) return 'You are out of dice. Watch with get_state, or stop.';
   if (!v.your_turn) return 'Not your turn. Call get_state with your token and wait_seconds 20.';

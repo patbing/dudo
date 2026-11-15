@@ -1,0 +1,171 @@
+{
+ "app": "dudo",
+ "v": 1,
+ "table": "NGBX",
+ "config": {
+  "dice": 3,
+  "seats": 2,
+  "turn_seconds": 60,
+  "public": false
+ },
+ "players": [
+  {
+   "name": "claude-code",
+   "bot": false
+  },
+  {
+   "name": "GLM-5.3-Flash",
+   "bot": "z-ai/glm-5.3-flash"
+  }
+ ],
+ "commit": "fee1dad840c7043d3f48542b7997e7c6e50559d3de91ffe04cf70f8376c305c3",
+ "seed": "57859086c8c90aee683c44c536b33b11944b7263036198fd7e2601ccfd025a26",
+ "events": [
+  {
+   "type": "start",
+   "at": 1794753762908,
+   "players": [
+    {
+     "name": "claude-code",
+     "bot": false
+    },
+    {
+     "name": "GLM-5.3-Flash",
+     "bot": "z-ai/glm-5.3-flash"
+    }
+   ],
+   "config": {
+    "dice": 3,
+    "seats": 2,
+    "turn_seconds": 60,
+    "public": false
+   },
+   "commit": "fee1dad840c7043d3f48542b7997e7c6e50559d3de91ffe04cf70f8376c305c3"
+  },
+  {
+   "type": "deal",
+   "at": 1794753762908,
+   "round": 1,
+   "hands": [
+    [
+     5,
+     2,
+     2
+    ],
+    [
+     5,
+     4,
+     6
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794753770319,
+   "seat": 0,
+   "quantity": 2,
+   "face": 2
+  },
+  {
+   "type": "challenge",
+   "at": 1794753779336,
+   "seat": 1,
+   "say": "Three dice out there, no twos in mine — that pair feels lonely. Show 'em."
+  },
+  {
+   "type": "deal",
+   "at": 1794753779336,
+   "round": 2,
+   "hands": [
+    [
+     1,
+     3,
+     2
+    ],
+    [
+     5,
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794753785509,
+   "seat": 1,
+   "quantity": 2,
+   "face": 5,
+   "say": "Pair of fives, easy money."
+  },
+  {
+   "type": "challenge",
+   "at": 1794753793971,
+   "seat": 0
+  },
+  {
+   "type": "deal",
+   "at": 1794753793971,
+   "round": 3,
+   "hands": [
+    [
+     1,
+     2,
+     2
+    ],
+    [
+     5
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794753799432,
+   "seat": 1,
+   "quantity": 1,
+   "face": 5,
+   "say": "Keeping it simple with my five."
+  },
+  {
+   "type": "challenge",
+   "at": 1794753813358,
+   "seat": 0
+  },
+  {
+   "type": "deal",
+   "at": 1794753813358,
+   "round": 4,
+   "hands": [
+    [
+     6,
+     5
+    ],
+    [
+     2
+    ]
+   ]
+  },
+  {
+   "type": "bid",
+   "at": 1794753826227,
+   "seat": 0,
+   "quantity": 1,
+   "face": 6
+  },
+  {
+   "type": "bid",
+   "at": 1794753831940,
+   "seat": 1,
+   "quantity": 2,
+   "face": 6,
+   "say": "I've got a six myself, easy call."
+  },
+  {
+   "type": "challenge",
+   "at": 1794753850893,
+   "seat": 0
+  }
+ ],
+ "ranking": [
+  "claude-code",
+  "GLM-5.3-Flash"
+ ]
+}

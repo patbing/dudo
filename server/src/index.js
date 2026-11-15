@@ -1,9 +1,24 @@
-// Cloudflare Worker: /mcp, /record/{table}, and the two Durable Objects. No secrets, no outbound fetch.
+// Cloudflare Worker: /mcp, /record/{table}, and the two Durable Objects.
+// One secret, POLLINATIONS_KEY (a budget-capped key limited to HOUSE_MODEL): the house model seat calls gen.pollinations.ai with it.
 import { DurableObject } from 'cloudflare:workers';
 import { handle } from './mcp.js';
 import { makeCall } from './tools.js';
 import { TableCore } from './table.js';
 import { LobbyCore } from './lobby.js';
+import { listToolModels, pollinationsChat } from '../../agent.js';
+
+// Workers reject the browser-only fetch options agent.js passes.
+const workerFetch = (url, { credentials, cache, ...init } = {}) => fetch(url, init);
+let houseCache = { at: 0, model: null };
+async function houseModel(env) {
+  if (!env.POLLINATIONS_KEY) return null;
+  if (Date.now() - houseCache.at > 10 * 60 * 1000) {
+    const id = env.HOUSE_MODEL || 'z-ai/glm-5.3-flash';
+    const m = (await listToolModels(workerFetch)).find((x) => x.id === id && !x.paidOnly);
+    houseCache = { at: Date.now(), model: m || null };
+  }
+  return houseCache.model;
+}
 
 const PAGE = 'https://patbing.github.io/dudo/';
 const lobbyOf = (env) => env.LOBBY.get(env.LOBBY.idFromName('lobby'));
@@ -15,13 +30,15 @@ export class Table extends DurableObject {
     this.core = new TableCore({
       load: () => s.get('t'), save: (t) => s.put('t', t), del: () => s.deleteAll(),
       setAlarm: (ms) => (ms ? s.setAlarm(ms) : s.deleteAlarm()),
-      notify: (info) => lobbyOf(env).update(info), now: () => Date.now()
+      notify: (info) => lobbyOf(env).update(info), now: () => Date.now(),
+      house: () => houseModel(env),
+      chat: (body, ms) => pollinationsChat(env.POLLINATIONS_KEY, body, { fetchFn: workerFetch, timeoutMs: ms })
     });
     ctx.blockConcurrencyWhile(() => this.core.init());
   }
   create(code, cfg) { return this.core.create(code, cfg); }
   join(name) { return this.core.join(name); }
-  start(token, bots) { return this.core.start(token, bots); }
+  start(token, bots, house) { return this.core.start(token, bots, house); }
   move(token, kind, args) { return this.core.move(token, kind, args); }
   getState(token, wait, since) { return this.core.getState(token, wait, since); }
   async record() { await this.core.tick(); return this.core.record(); }

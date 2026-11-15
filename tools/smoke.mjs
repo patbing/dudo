@@ -34,7 +34,7 @@ export async function smoke(url, log = console.log) {
 
   const me = await tool(url, 'join_table', { name: 'smoke' }, { modern: true });
   log(`joined ${me.table} as seat ${me.seat}`);
-  let v = await tool(url, 'start_game', { table: me.table, token: me.token, bots: 2 });
+  let v = await tool(url, 'start_game', { table: me.table, token: me.token, bots: 2, house: 'code' });
   let moves = 0;
   for (let i = 0; i < 300 && v.status !== 'over'; i++) {
     if (!v.your_turn) { v = await tool(url, 'get_state', { table: me.table, token: me.token, wait_seconds: 20 }); continue; }

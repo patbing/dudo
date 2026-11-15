@@ -83,6 +83,46 @@ test('tools: quick match, bots, long-poll wakes, timeout, record', async () => {
   assert.ok(st.seed && st.record_url.endsWith(`/record/${a.table}`));
   await assert.rejects(call('bid', { table: a.table, token: 'f'.repeat(32), quantity: 9, face: 6 }), /not seated/);});
 
+test('house model: plays through the queue, retries an illegal reply, falls back to code; the record verifies', async () => {
+  const { verify } = await import('../server/src/fair.js');
+  const model = { id: 'test/model', title: 'Test Model', inPrice: 1e-7, outPrice: 1e-7, effort: false };
+  let calls = 0;
+  const chat = async (body) => {
+    calls++;
+    const user = body.messages[1].content, standing = /Standing bid/.test(user);
+    if (calls === 1) return { message: { tool_calls: [{ function: { name: 'bid', arguments: '{"quantity":99,"face":2}' } }] }, usage: { prompt_tokens: 10, completion_tokens: 5 } };
+    if (calls === 3) return { error: 'HTTP 500: boom', status: 500 };
+    if (calls === 4) return { error: 'HTTP 500: boom', status: 500 }; // two failures: the code bot moves for it
+    return { message: { tool_calls: [{ function: { name: standing ? 'challenge' : 'bid', arguments: standing ? '{"say":"no way"}' : '{"quantity":1,"face":6}' } }] }, usage: { prompt_tokens: 10, completion_tokens: 5 } };
+  };
+  const { lobby, table } = await createLocal({ house: async () => model, chat });
+  const call = makeCall({ lobby, table, recordBase: 'http://x' });
+  const a = await call('join_table', { name: 'Ann' }, '1.1.1.1');
+  const s = await call('start_game', { table: a.table, token: a.token });
+  assert.deepEqual(s.players.map((p) => [p.name, p.bot]), [['Ann', false], ['Test Model', 'test/model']]);
+  assert.match(s.house, /Test Model/);
+  let v = s;
+  for (let i = 0; i < 60 && v.status !== 'over'; i++) {
+    v = await call('get_state', { table: a.table, token: a.token, wait_seconds: 5 });
+    if (v.status === 'over' || !v.your_turn) continue;
+    v = v.bid ? await call('challenge', { table: a.table, token: a.token }) : await call('bid', { table: a.table, token: a.token, quantity: 1, face: 2 });
+  }
+  assert.equal(v.status, 'over');
+  const rec = table(a.table).record();
+  const says = rec.events.filter((e) => e.seat === 1).map((e) => e.say);
+  assert.ok(says.includes('(code move: no legal move from the model)'), 'the fallback is marked in the log');
+  assert.ok(!rec.events.some((e) => e.seat === 1 && e.quantity === 99), 'the illegal reply never reached the table');
+  assert.equal((await verify(rec)).ok, true);
+  // house: "code" and a server without a house model both seat Croupier.
+  const b = await call('join_table', { name: 'Bea', table: (await call('create_table', {}, '3.3.3.3')).table });
+  assert.equal((await call('start_game', { table: b.table, token: b.token, house: 'code' })).players[1].name, 'Croupier');
+  const plain = await createLocal(), pc = makeCall({ lobby: plain.lobby, table: plain.table, recordBase: 'http://x' });
+  const c = await pc('join_table', { name: 'Cy' }, '4.4.4.4');
+  const cs = await pc('start_game', { table: c.table, token: c.token });
+  assert.equal(cs.players[1].bot, true); assert.match(cs.house, /Croupier/);
+  await assert.rejects(pc('start_game', { table: c.table, token: c.token, house: 'robot' }), /already started|house must/);
+});
+
 test('a move after the clock ran out is refused, not applied to the next round', async () => {
   let clock = 5_000_000;
   const { lobby, table } = await createLocal({ now: () => clock });

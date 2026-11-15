@@ -36,7 +36,7 @@ export function makeCall({ lobby, table, recordBase }) {
         const { table: c } = await create({}, ip);
         return table(c).join(a.name);
       }
-      case 'start_game': return withRecord(await table(code(a.table)).start(token(a.token), optInt(a.bots, 'bots')));
+      case 'start_game': return withRecord(await table(code(a.table)).start(token(a.token), optInt(a.bots, 'bots'), a.house ?? undefined));
       case 'get_state': {
         const tk = a.token === undefined || a.token === null || a.token === '' ? null : token(a.token);
         return withRecord(await table(code(a.table)).getState(tk, optInt(a.wait_seconds, 'wait_seconds') ?? 0, optInt(a.since, 'since')));

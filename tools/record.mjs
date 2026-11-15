@@ -32,7 +32,7 @@ if (agents) {
   let v = await tool('get_state', { table });
   while (v.players.length < seats) v = await tool('get_state', { table, since: v.version, wait_seconds: 20 });
 }
-await tool('start_game', { table, token: tokens[0], bots: seats < 2 ? 1 : 0 });
+await tool('start_game', { table, token: tokens[0], bots: seats < 2 ? 1 : 0, house: 'code' });
 const t0 = Date.now();
 const results = await Promise.all(models.map((m, i) => playSeat({
   tool, table, token: tokens[i], model: m, guard,

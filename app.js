@@ -22,7 +22,7 @@ function renderBoard(v, { hands = null, note = '' } = {}) {
     if (v.turn && v.turn.seat === p.seat && v.status === 'playing') s.classList.add('on');
     if (p.out) s.classList.add('out');
     const head = el('div', 'seat-head');
-    head.append(el('strong', '', p.name), el('span', 'fine', p.bot ? ' house bot' : ''));
+    head.append(el('strong', '', p.name), el('span', 'fine', p.bot === true ? ' house bot' : p.bot ? ' house model' : ''));
     const dice = el('div', 'dice');
     const n = show && show[p.seat] ? show[p.seat].length : p.dice;
     for (let i = 0; i < n; i++) dice.append(die(show && show[p.seat] ? show[p.seat][i] : 0, v.bid && show && show[p.seat] && show[p.seat][i] === v.bid.face ? 'hit' : ''));
@@ -233,7 +233,7 @@ async function startGame() {
       while (v.players.length < seats && !ctrl.signal.aborted) v = await tool('get_state', { table, since: v.version, wait_seconds: 20 });
       if (ctrl.signal.aborted) throw new Error('stopped');
     }
-    await tool('start_game', { table, token: tokens[0], bots: seats < 2 ? 1 : 0 });
+    await tool('start_game', { table, token: tokens[0], bots: seats < 2 ? 1 : 0, house: 'code' });
     log('Game started. Seed committed before the first bid.');
     const chat = (body) => pollinationsChat(app.key, body, { signal: ctrl.signal });
     await Promise.all(models.map((m, i) => playSeat({

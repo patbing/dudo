@@ -12,7 +12,7 @@ import { LobbyCore } from './src/lobby.js';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml' };
 
-export async function createLocal({ now = () => Date.now() } = {}) {
+export async function createLocal({ now = () => Date.now(), house, chat } = {}) {
   const lobby = new LobbyCore({ load: () => null, save: () => {}, now });
   await lobby.init();
   const tables = new Map();
@@ -22,7 +22,7 @@ export async function createLocal({ now = () => Date.now() } = {}) {
       const core = new TableCore({
         load: () => null, save: () => {}, del: () => { tables.delete(code); }, now,
         setAlarm: (ms) => { clearTimeout(timer); timer = ms ? setTimeout(() => core.tick(), Math.max(0, ms - now())) : null; if (timer?.unref) timer.unref(); },
-        notify: (info) => lobby.update(info)
+        notify: (info) => lobby.update(info), house, chat
       });
       // No init(): nothing is stored locally, and an async init could race the first create.
       tables.set(code, core);

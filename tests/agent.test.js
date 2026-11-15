@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createLocal } from '../server/local.js';
 import { makeCall } from '../server/src/tools.js';
-import { playSeat, spendGuard, prompt, toolCall } from '../agent.js';
+import { playSeat, spendGuard, prompt, toolCall, pollinationsChat } from '../agent.js';
 
 const model = { id: 'stub', inPrice: 1e-7, outPrice: 1e-6, effort: false };
 const usage = { prompt_tokens: 500, completion_tokens: 50 };
@@ -50,4 +50,19 @@ test('prompt and parsing', () => {
   assert.match(u, /Your dice: 4 4 1/); assert.match(u, /B bid 2 x 4 \("fours"\)/); assert.match(u, /lowest raise is 2 x 5/);
   assert.deepEqual(toolCall({ tool_calls: [{ function: { name: 'bid', arguments: '{"quantity":"3","face":5}' } }] }), { name: 'bid', args: { quantity: 3, face: 5 } });
   assert.equal(toolCall({ content: 'I challenge' }), null);
+});
+
+test('a provider that rejects reasoning_effort gets the call once more without it', async () => {
+  const sent = [];
+  const fetchFn = async (url, o) => {
+    const b = JSON.parse(o.body); sent.push(b.reasoning_effort || null);
+    return b.reasoning_effort
+      ? new Response(JSON.stringify({ error: { message: 'Property reasoning_effort has an invalid value: low.' } }), { status: 400 })
+      : new Response(JSON.stringify({ choices: [{ message: { content: 'ok' } }], usage }), { status: 200 });
+  };
+  const r = await pollinationsChat('sk_test', { model: 'x', messages: [], max_tokens: 10, reasoning_effort: 'low' }, { fetchFn });
+  assert.deepEqual(sent, ['low', null]);
+  assert.equal(r.message.content, 'ok');
+  const other = await pollinationsChat('sk_test', { model: 'x', messages: [], reasoning_effort: 'low' }, { fetchFn: async () => new Response('{}', { status: 400 }) });
+  assert.match(other.error, /HTTP 400/);
 });

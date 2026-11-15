@@ -76,6 +76,8 @@ export async function pollinationsChat(key, body, { fetchFn = fetch, timeoutMs =
     const r = await fetchFn(`${API}/v1/chat/completions`, { method: 'POST', headers: { 'content-type': 'application/json', authorization: `Bearer ${key}` }, body: JSON.stringify(body), signal: ctrl.signal, credentials: 'omit', cache: 'no-store' });
     const txt = await r.text();
     let j = null; try { j = JSON.parse(txt); } catch { /* not JSON */ }
+    // shortcut: some providers reject reasoning_effort "low" (DeepSeek on azure-openai, 2026-11); send once more without it.
+    if (r.status === 400 && body.reasoning_effort && /reasoning_effort/.test(txt)) { const { reasoning_effort, ...rest } = body; return pollinationsChat(key, rest, { fetchFn, timeoutMs, signal }); }
     if (!r.ok) return { error: `HTTP ${r.status}: ${String((j && j.error && (j.error.message || j.error)) || txt).slice(0, 200)}`, status: r.status };
     return { message: j && j.choices && j.choices[0] && j.choices[0].message, usage: j && j.usage };
   } catch (e) {
